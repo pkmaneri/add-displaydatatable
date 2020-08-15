@@ -35,7 +35,11 @@ function DataTable() {
             "id": collegeIdInputed,
         }
         setDataArr([...dataArr, colObj])
-        console.log(dataArr)
+
+        //reset form data
+        setCollegeName("");
+        setCollegeId("");
+
     }
 
     return (
