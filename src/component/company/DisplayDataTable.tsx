@@ -1,13 +1,15 @@
 import React from "react"
+import { College } from "../../shared/util";
+
 
 interface DisplayDataTableProps {
-    collegeIdInputed: string;
-    collegeNameInputed: string;
-  }
+    dataArr: College[];
+}
 
 function DisplayDataTable(displayDataTableProps: DisplayDataTableProps) {
     var tableStyle = {
         width: "100%",
+        display: displayDataTableProps.dataArr.length === 0 ? 'none' : 'table'
     }
     var tdStyle = {
         width: "50%"
@@ -24,16 +26,25 @@ function DisplayDataTable(displayDataTableProps: DisplayDataTableProps) {
                         College Id
                     </td>
                 </tr>
-                <tr >
-                    <td>
-                        {displayDataTableProps.collegeNameInputed}
-                    </td>
-                    <td>
-                        {displayDataTableProps.collegeIdInputed}
-                    </td>
-                </tr>
+                {displayDataTableProps.dataArr.map((object, index) => {
+                    let collegeIdInputed = object.id;
+                    let collegeNameInputed = object.name;
+
+                    return (
+                        <tr key={index}>
+                            <td>
+                                {collegeNameInputed}
+                            </td>
+                            <td>
+                                {collegeIdInputed}
+                            </td>
+                        </tr>
+                    )
+
+                })}
             </tbody>
         </table>
+
     )
 }
 

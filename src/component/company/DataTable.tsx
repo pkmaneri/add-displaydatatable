@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import DisplayDataTable from "./DisplayDataTable"
+import { College } from "../../shared/util";
+
 function DataTable() {
 
     var tableStyle = {
@@ -10,6 +12,11 @@ function DataTable() {
         width: "50%",
         color: "blue"
     }
+
+
+    var intialDataArr: College[] = [];
+
+    var [dataArr, setDataArr] = useState(intialDataArr)
     var [collegeNameInputed, setCollegeName] = useState("")
     var [collegeIdInputed, setCollegeId] = useState("")
 
@@ -21,31 +28,48 @@ function DataTable() {
         setCollegeId(e.target.value);
 
     }
+    function handleOnClick() {
+        // dataArr.push(collegeNameInputed);
+        let colObj = {
+            "name" : collegeNameInputed,
+            "id": collegeIdInputed,
+        }
+        setDataArr([...dataArr, colObj])
+        console.log(dataArr)
+    }
+
     return (
         <>
-        <table style={tableStyle} >
-            <tbody>
-                <tr>
-                    <td style={tdStyle}>
-                        College Name
+            <table style={tableStyle} >
+                <tbody>
+                    <tr>
+                        <td style={tdStyle}>
+                            College Name
                 </td >
-                    <td style={tdStyle}>
-                        <input type="text" onChange={collegeName} value={collegeNameInputed}></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td style={tdStyle}>
-                        College Id
+                        <td style={tdStyle}>
+                            <input type="text" onChange={collegeName} value={collegeNameInputed}></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={tdStyle}>
+                            College Id
             </td >
-                    <td style={tdStyle}>
-                        <input type="text" onChange={collegeId} value={collegeIdInputed}></input>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        {collegeIdInputed} {collegeNameInputed}
-        <hr/>
-        <DisplayDataTable collegeIdInputed={collegeIdInputed} collegeNameInputed={collegeNameInputed}/>
+                        <td style={tdStyle}>
+                            <input type="text" onChange={collegeId} value={collegeIdInputed}></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                            <button onClick={handleOnClick}>Add</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <DisplayDataTable dataArr={dataArr} />
         </>
     )
 
